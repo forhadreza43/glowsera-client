@@ -1,5 +1,5 @@
 "use client"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import {
   Star,
@@ -8,6 +8,7 @@ import {
   Truck,
   Shield,
   RotateCcw,
+  Zap,
 } from "lucide-react"
 import { useState } from "react"
 import { products } from "@/data/mockData"
@@ -27,6 +28,7 @@ const ProductDetailPage = () => {
   const { isInWishlist, toggleItem } = useWishlist()
   const [activeTab, setActiveTab] = useState(0)
   const [qty, setQty] = useState(1)
+  const router = useRouter()
 
   if (!product) {
     return (
@@ -43,6 +45,11 @@ const ProductDetailPage = () => {
   const related = products
     .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 4)
+  const handleBuyNow = (e: React.MouseEvent) => {
+    e.preventDefault()
+    addItem(product)
+    router.push("/checkout")
+  }
 
   return (
     <div className="container-narrow py-8 md:py-12">
@@ -177,14 +184,30 @@ const ProductDetailPage = () => {
             </div>
 
             <div className="flex gap-3">
-              <button
+              {/* <button
                 onClick={() => {
                   for (let i = 0; i < qty; i++) addItem(product)
                 }}
                 disabled={!product.inStock}
-                className="flex flex-1 items-center justify-center gap-2 btn-rose disabled:opacity-50"
+                className="flex flex-1 items-center justify-center gap-2 btn-rose text-nowrap disabled:opacity-50"
               >
                 <ShoppingBag size={16} /> Add to Bag
+              </button> */}
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  addItem(product)
+                }}
+                disabled={!product.inStock}
+                className="flex flex-1 items-center justify-center gap-2 text-sm rounded-sm bg-foreground/90 px-2 py-2 font-body tracking-wider text-nowrap text-background uppercase transition-colors hover:bg-foreground"
+              >
+                <ShoppingBag size={13} /> Add to Bag
+              </button>
+              <button
+                onClick={handleBuyNow}
+                className="flex flex-1 items-center justify-center gap-2 text-sm rounded-sm bg-rose-gold px-2 py-2 font-body tracking-wider text-nowrap text-accent-foreground uppercase transition-colors hover:bg-rose-gold/90"
+              >
+                <Zap size={13} /> Buy Now
               </button>
               <button
                 onClick={() => toggleItem(product)}
