@@ -1,4 +1,5 @@
 import { Geist_Mono, Inter, Cormorant_Garamond } from "next/font/google"
+import { Suspense } from "react"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -46,7 +47,9 @@ export default function RootLayout({
             <Toaster />
             <Sonner />
             <AnnouncementBar />
-            <Header />
+            <Suspense fallback={null}>
+              <Header />
+            </Suspense>
             <CartDrawer />
             {children}
             <Footer />

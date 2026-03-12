@@ -1,7 +1,12 @@
 import ShopPage from "@/pages/ShopPage"
+import { Suspense } from "react"
 
 const Shop = () => {
-  return <ShopPage />
+  return (
+    <Suspense fallback={null}>
+      <ShopPage />
+    </Suspense>
+  )
 }
 
 export default Shop
