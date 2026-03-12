@@ -28,7 +28,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     <div className="group relative">
       {/* Image */}
       <Link href={`/product/${product.slug}`} className="block">
-        <div className="aspect-[3/4] bg-secondary rounded-sm overflow-hidden relative">
+        <div className="aspect-3/4 bg-secondary rounded-sm overflow-hidden relative">
           {productImage ? (
             <Image src={productImage} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
           ) : (
@@ -53,23 +53,23 @@ const ProductCard = ({ product }: ProductCardProps) => {
           {/* Wishlist */}
           <button
             onClick={(e) => { e.preventDefault(); toggleItem(product); }}
-            className="absolute top-3 right-3 z-10 p-2 bg-background/80 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-background"
+            className="absolute top-3 right-3 z-10 p-2 bg-background/80 backdrop-blur-sm rounded-full md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 hover:bg-background"
           >
             <Heart size={16} className={wishlisted ? "fill-rose-gold text-rose-gold" : "text-foreground"} />
           </button>
 
           {/* Quick action buttons */}
-          {product.inStock && (
-            <div className="absolute bottom-3 left-3 right-3 z-10 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+          {product?.inStock && (
+            <div className="absolute bottom-3 left-3 right-3 z-10 flex gap-2 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
               <button
                 onClick={(e) => { e.preventDefault(); addItem(product); }}
-                className="flex-1 flex items-center justify-center gap-1.5 bg-foreground/90 text-background py-2.5 text-[11px] tracking-wider uppercase font-body font-medium rounded-sm hover:bg-foreground transition-colors"
+                className="text-nowrap flex-1 flex items-center justify-center gap-1.5 bg-foreground/90 text-background py-2 text-[11px] tracking-wider uppercase font-body font-medium rounded-sm hover:bg-foreground transition-colors px-2"
               >
                 <ShoppingBag size={13} /> Add to Bag
               </button>
               <button
                 onClick={handleBuyNow}
-                className="flex-1 flex items-center justify-center gap-1.5 bg-rose-gold text-accent-foreground py-2.5 text-[11px] tracking-wider uppercase font-body font-medium rounded-sm hover:bg-rose-gold/90 transition-colors"
+                className="px-2 text-nowrap flex-1 flex items-center justify-center gap-1.5 bg-rose-gold text-accent-foreground py-2 text-[11px] tracking-wider uppercase font-body font-medium rounded-sm hover:bg-rose-gold/90 transition-colors"
               >
                 <Zap size={13} /> Buy Now
               </button>

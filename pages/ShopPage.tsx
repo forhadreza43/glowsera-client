@@ -21,6 +21,14 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { useIsMobile } from "@/hooks/use-mobile"
 
 const sortOptions = [
@@ -167,7 +175,7 @@ const ShopPage = () => {
           onClick={() => setFiltersOpen(!filtersOpen)}
           className="flex items-center gap-2 font-body text-sm"
         >
-          <SlidersHorizontal size={16} /> Filters
+          <SlidersHorizontal size={16} className={`${filtersOpen ? "text-rose-gold" : ""}`} /> Filters
           {(activeCategory ||
             activeMinPrice ||
             activeMaxPrice ||
@@ -187,17 +195,23 @@ const ShopPage = () => {
             </span>
           )}
         </button>
-        <select
-          value={activeSort}
-          onChange={(e) => setFilter("sort", e.target.value)}
-          className="rounded-sm border border-border bg-transparent px-3 py-2 font-body text-sm focus:outline-none"
+        <Select
+          onValueChange={(value) => setFilter("sort", value)}
+          defaultValue={activeSort}
         >
-          {sortOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger className="w-48 rounded border border-border bg-transparent px-3 py-2 font-body text-sm focus:outline-none">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent position="popper">
+            <SelectGroup>
+              {sortOptions.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="flex gap-8">
@@ -578,7 +592,7 @@ const ShopPage = () => {
           activeInStock ||
           activeNew ||
           activeBestSeller) && (
-          <div className="mb-4 md:hidden">
+          <div className="mb-4 hidden">
             <div className="flex flex-wrap gap-2">
               {activeCategory && (
                 <button
@@ -629,7 +643,9 @@ const ShopPage = () => {
 
         {/* Products grid */}
         <div className="flex-1">
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
+          <div
+            className={`grid grid-cols-2 gap-4 md:gap-6 ${filtersOpen ? "md:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-3 lg:grid-cols-4"}`}
+          >
             {filteredProducts.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}
