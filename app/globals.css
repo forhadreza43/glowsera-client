@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: hsl(30 25% 97%);
+  --foreground: hsl(20 10% 12%);
+
+  --card: hsl(30 20% 99%);
+  --card-foreground: hsl(20 10% 12%);
+
+  --popover: hsl(30 20% 99%);
+  --popover-foreground: hsl(20 10% 12%);
+
+  --primary: hsl(20 10% 12%);
+  --primary-foreground: hsl(30 25% 97%);
+
+  --secondary: hsl(30 15% 93%);
+  --secondary-foreground: hsl(20 10% 12%);
+
+  --muted: hsl(30 12% 94%);
+  --muted-foreground: hsl(20 5% 46%);
+
+  --accent: hsl(15 60% 55%);
+  --accent-foreground: hsl(0 0% 100%);
+
+  --destructive: hsl(0 72% 51%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --border: hsl(30 15% 90%);
+  --input: hsl(30 15% 88%);
+  --ring: hsl(15 60% 55%);
+
+  --radius: 0.375rem;
+
+  --rose-gold: hsl(15 60% 55%);
+  --rose-gold-light: hsl(15 50% 90%);
+  --champagne: hsl(38 40% 92%);
+  --cream: hsl(40 33% 96%);
+  --charcoal: hsl(20 10% 12%);
+  --warm-gray: hsl(20 5% 46%);
+  --blush: hsl(350 30% 95%);
+
+  --font-heading: "Cormorant Garamond", serif;
+  --font-body: "DM Sans", sans-serif;
+
+  --sidebar-background: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
+
+
+
+@theme inline {
+  --color-background: hsl(30 25% 97%);
+  --color-foreground: hsl(20 10% 12%);
+  --color-card: hsl(30 20% 99%);
+  --color-card-foreground: hsl(20 10% 12%);
+  --color-popover: hsl(30 20% 99%);
+  --color-popover-foreground: hsl(20 10% 12%);
+  --color-primary: hsl(20 10% 12%);
+  --color-primary-foreground: hsl(30 25% 97%);
+  --color-secondary: hsl(30 15% 93%);
+  --color-secondary-foreground: hsl(20 10% 12%);
+  --color-muted: hsl(30 12% 94%);
+  --color-muted-foreground: hsl(20 5% 46%);
+  --color-accent: hsl(15 60% 55%);
+  --color-accent-foreground: hsl(0 0% 100%);
+  --color-destructive: hsl(0 72% 51%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+  --color-border: hsl(30 15% 90%);
+  --color-input: hsl(30 15% 88%);
+  --color-ring: hsl(15 60% 55%);
+
+  --color-rose-gold: hsl(15 60% 55%);
+  --color-rose-gold-light: hsl(15 50% 90%);
+  --color-champagne: hsl(38 40% 92%);
+  --color-cream: hsl(40 33% 96%);
+  --color-charcoal: hsl(20 10% 12%);
+  --color-warm-gray: hsl(20 5% 46%);
+  --color-blush: hsl(350 30% 95%);
+
+  --color-sidebar: hsl(0 0% 98%);
+  --color-sidebar-foreground: hsl(240 5.3% 26.1%);
+  --color-sidebar-primary: hsl(240 5.9% 10%);
+  --color-sidebar-primary-foreground: hsl(0 0% 98%);
+  --color-sidebar-accent: hsl(240 4.8% 95.9%);
+  --color-sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --color-sidebar-border: hsl(220 13% 91%);
+  --color-sidebar-ring: hsl(217.2 91.2% 59.8%);
+
+  --radius: 0.375rem;
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-slide-in-right: slide-in-right 0.3s ease-out;
+
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slide-in-right {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+}
+
+/* Dark mode overrides */
+.dark {
+  --color-background: hsl(20 10% 8%);
+  --color-foreground: hsl(30 15% 93%);
+  --color-card: hsl(20 10% 10%);
+  --color-card-foreground: hsl(30 15% 93%);
+  --color-popover: hsl(20 10% 10%);
+  --color-popover-foreground: hsl(30 15% 93%);
+  --color-primary: hsl(30 15% 93%);
+  --color-primary-foreground: hsl(20 10% 8%);
+  --color-secondary: hsl(20 8% 16%);
+  --color-secondary-foreground: hsl(30 15% 93%);
+  --color-muted: hsl(20 8% 16%);
+  --color-muted-foreground: hsl(20 5% 60%);
+  --color-accent: hsl(15 60% 55%);
+  --color-accent-foreground: hsl(0 0% 100%);
+  --color-destructive: hsl(0 62.8% 30.6%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+  --color-border: hsl(20 8% 18%);
+  --color-input: hsl(20 8% 18%);
+  --color-ring: hsl(15 60% 55%);
+  --color-sidebar: hsl(240 5.9% 10%);
+  --color-sidebar-foreground: hsl(240 4.8% 95.9%);
+  --color-sidebar-primary: hsl(224.3 76.3% 48%);
+  --color-sidebar-primary-foreground: hsl(0 0% 100%);
+  --color-sidebar-accent: hsl(240 3.7% 15.9%);
+  --color-sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --color-sidebar-border: hsl(240 3.7% 15.9%);
+  --color-sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@utility container-narrow {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+@utility heading-display {
+  font-family: var(--font-heading);
+  @apply tracking-tight;
+}
+
+@utility glass-card {
+  @apply bg-card/80 backdrop-blur-sm border border-border/50 rounded-lg;
+}
+
+@utility btn-rose {
+  background-color: var(--color-rose-gold);
+  color: white;
+  @apply px-8 py-3 rounded-sm font-medium text-sm tracking-wider uppercase transition-all duration-300;
+}
+
+@utility btn-outline-dark {
+  @apply border border-foreground text-foreground px-8 py-3 rounded-sm font-medium text-sm tracking-wider uppercase transition-all duration-300;
+}
