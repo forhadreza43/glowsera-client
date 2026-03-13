@@ -88,7 +88,7 @@ const CheckoutPage = () => {
               <div className="space-y-4">
                 {items.map((item: CartItem) => (
                   <div key={item.product.id} className="flex items-center gap-4">
-                    <div className="w-16 h-16 bg-secondary rounded-sm flex-shrink-0" />
+                    <div className="w-16 h-16 bg-secondary rounded-sm shrink-0" />
                     <div className="flex-1">
                       <p className="text-sm font-body font-medium">{item.product.name}</p>
                       <p className="text-xs text-muted-foreground font-body">Qty: {item.quantity}</p>

@@ -63,13 +63,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <div className="absolute bottom-3 left-3 right-3 z-10 flex gap-2 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300">
               <button
                 onClick={(e) => { e.preventDefault(); addItem(product); }}
-                className="text-nowrap flex-1 flex items-center justify-center gap-1.5 bg-foreground/90 text-background py-2 text-[11px] tracking-wider uppercase font-body font-medium rounded-sm hover:bg-foreground transition-colors px-2"
+                className="text-nowrap flex-1 flex items-center justify-center gap-1.5 bg-rose-gold md:bg-foreground/90 text-background py-2 text-[11px] tracking-wider uppercase font-body font-medium rounded-sm md:hover:bg-foreground transition-colors px-2"
               >
                 <ShoppingBag size={13} /> Add to Bag
               </button>
               <button
                 onClick={handleBuyNow}
-                className="px-2 text-nowrap flex-1 flex items-center justify-center gap-1.5 bg-rose-gold text-accent-foreground py-2 text-[11px] tracking-wider uppercase font-body font-medium rounded-sm hover:bg-rose-gold/90 transition-colors"
+                className="hidden md:flex px-2 text-nowrap flex-1 items-center justify-center gap-1.5 bg-rose-gold text-accent-foreground py-2 text-[11px] tracking-wider uppercase font-body font-medium rounded-sm hover:bg-rose-gold/90 transition-colors"
               >
                 <Zap size={13} /> Buy Now
               </button>
