@@ -1,18 +1,12 @@
 "use client"
-import { useMemo, useState } from "react"
+import { useMemo, useState, useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { SlidersHorizontal, X } from "lucide-react"
 import ProductCard from "@/components/product/ProductCard"
 import { products, categories } from "@/data/mockData"
 import { Slider } from "@/components/ui/slider"
-import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
-import {
-  Field,
-  FieldContent,
-  FieldLabel,
-  FieldTitle,
-} from "@/components/ui/field"
+import { Field } from "@/components/ui/field"
 import { Label } from "@/components/ui/label"
 import {
   Drawer,
@@ -38,10 +32,6 @@ const sortOptions = [
   { label: "Most Popular", value: "popular" },
 ]
 
-const allPrices = products.map((p) => p.discountPrice || p.price)
-const ABS_MIN_PRICE = allPrices.length ? Math.min(...allPrices) : 0
-const ABS_MAX_PRICE = allPrices.length ? Math.max(...allPrices) : 0
-
 const ShopPage = () => {
   const searchParams = useSearchParams()
   const [filtersOpen, setFiltersOpen] = useState(false)
@@ -56,6 +46,27 @@ const ShopPage = () => {
   const activeInStock = (searchParams?.get("inStock") || "") === "1"
   const activeNew = (searchParams?.get("new") || "") === "1"
   const activeBestSeller = (searchParams?.get("bestSeller") || "") === "1"
+
+  const DEFAULT_MIN_PRICE = 50
+  const DEFAULT_MAX_PRICE = 100000
+
+  const [priceRange, setPriceRange] = useState<[number, number]>(() => {
+    const min = Number(activeMinPrice) || DEFAULT_MIN_PRICE
+    const max = Number(activeMaxPrice) || DEFAULT_MAX_PRICE
+    return [min, max]
+  })
+
+  // Keep the URL in sync with search params without triggering navigation loops
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const currentSearch = window.location.search || ""
+    const desiredSearch = `?${searchParams?.toString()}`
+
+    if (currentSearch !== desiredSearch) {
+      router.replace(desiredSearch)
+    }
+  }, [router, searchParams])
 
   const activeCategorySlugs = useMemo(() => {
     if (!activeCategory.trim()) return []
@@ -90,19 +101,6 @@ const ShopPage = () => {
       })
     }
 
-    const min = Number.parseFloat(activeMinPrice)
-    const max = Number.parseFloat(activeMaxPrice)
-    const hasMin = Number.isFinite(min)
-    const hasMax = Number.isFinite(max)
-    if (hasMin || hasMax) {
-      filtered = filtered.filter((p) => {
-        const price = p.discountPrice || p.price
-        if (hasMin && price < min) return false
-        if (hasMax && price > max) return false
-        return true
-      })
-    }
-
     if (activeInStock) {
       filtered = filtered.filter((p) => p.inStock)
     }
@@ -134,8 +132,6 @@ const ShopPage = () => {
     activeBestSeller,
     activeCategorySlugs,
     activeInStock,
-    activeMaxPrice,
-    activeMinPrice,
     activeNew,
     activeQuery,
     activeSort,
@@ -149,13 +145,25 @@ const ShopPage = () => {
   }
 
   const setBoolFilter = (key: string, enabled: boolean) => {
-    setFilter(key, enabled ? "1" : "")
+    const params = new URLSearchParams(searchParams?.toString() || undefined)
+    if (enabled) params.set(key, "1")
+    else params.delete(key)
+    router.push(`?${params.toString()}`)
   }
 
-  const parsedMin = Number.parseFloat(activeMinPrice)
-  const parsedMax = Number.parseFloat(activeMaxPrice)
-  const sliderMin = Number.isFinite(parsedMin) ? parsedMin : ABS_MIN_PRICE
-  const sliderMax = Number.isFinite(parsedMax) ? parsedMax : ABS_MAX_PRICE
+  const applyPriceFilter = (value: number[]) => {
+    const [min, max] = value
+    const params = new URLSearchParams(searchParams?.toString() || undefined)
+
+    // Do not keep price filters in URL at the defaults
+    if (min > 50) params.set("minPrice", String(min))
+    else params.delete("minPrice")
+
+    if (max < 100000) params.set("maxPrice", String(max))
+    else params.delete("maxPrice")
+
+    router.push(`?${params.toString()}`)
+  }
 
   return (
     <div className="container-narrow py-8 md:py-12">
@@ -175,7 +183,11 @@ const ShopPage = () => {
           onClick={() => setFiltersOpen(!filtersOpen)}
           className="flex items-center gap-2 font-body text-sm"
         >
-          <SlidersHorizontal size={16} className={`${filtersOpen ? "text-accent" : ""}`} /> Filters
+          <SlidersHorizontal
+            size={16}
+            className={`${filtersOpen ? "text-accent" : ""}`}
+          />{" "}
+          Filters
           {(activeCategory ||
             activeMinPrice ||
             activeMaxPrice ||
@@ -248,59 +260,17 @@ const ShopPage = () => {
                 </h3>
                 <div className="mb-3">
                   <Slider
-                    min={ABS_MIN_PRICE}
-                    max={ABS_MAX_PRICE}
+                    min={50}
+                    max={100000}
                     step={50}
-                    value={[sliderMin, sliderMax]}
-                    onValueChange={([min, max]) => {
-                      setFilter("minPrice", String(Math.round(min)))
-                      setFilter("maxPrice", String(Math.round(max)))
-                    }}
+                    value={priceRange}
+                    onValueChange={(value) => setPriceRange(value as [number, number])}
+                    onValueCommit={applyPriceFilter}
                   />
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <Field orientation="vertical">
-                    <FieldLabel>
-                      <FieldTitle>
-                        <Label htmlFor="price-min">Min</Label>
-                      </FieldTitle>
-                      <FieldContent>
-                        <Input
-                          id="price-min"
-                          value={activeMinPrice}
-                          inputMode="numeric"
-                          placeholder={ABS_MIN_PRICE.toString()}
-                          onChange={(e) =>
-                            setFilter(
-                              "minPrice",
-                              e.target.value.replace(/[^\d.]/g, "")
-                            )
-                          }
-                        />
-                      </FieldContent>
-                    </FieldLabel>
-                  </Field>
-                  <Field orientation="vertical">
-                    <FieldLabel>
-                      <FieldTitle>
-                        <Label htmlFor="price-max">Max</Label>
-                      </FieldTitle>
-                      <FieldContent>
-                        <Input
-                          id="price-max"
-                          value={activeMaxPrice}
-                          inputMode="numeric"
-                          placeholder={ABS_MAX_PRICE.toString()}
-                          onChange={(e) =>
-                            setFilter(
-                              "maxPrice",
-                              e.target.value.replace(/[^\d.]/g, "")
-                            )
-                          }
-                        />
-                      </FieldContent>
-                    </FieldLabel>
-                  </Field>
+                  <div className="flex items-center justify-between text-sm text-muted-foreground">
+                    <span>${priceRange[0]}</span>
+                    <span>${priceRange[1]}</span>
+                  </div>
                 </div>
               </div>
 
@@ -441,59 +411,17 @@ const ShopPage = () => {
                   </h3>
                   <div className="mb-3">
                     <Slider
-                      min={ABS_MIN_PRICE}
-                      max={ABS_MAX_PRICE}
+                      min={50}
+                      max={100000}
                       step={50}
-                      value={[sliderMin, sliderMax]}
-                      onValueChange={([min, max]) => {
-                        setFilter("minPrice", String(Math.round(min)))
-                        setFilter("maxPrice", String(Math.round(max)))
-                      }}
+                      value={priceRange}
+                      onValueChange={(value) => setPriceRange(value as [number, number])}
+                      onValueCommit={applyPriceFilter}
                     />
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <Field orientation="vertical">
-                      <FieldLabel>
-                        <FieldTitle>
-                          <Label htmlFor="price-min-mobile">Min</Label>
-                        </FieldTitle>
-                        <FieldContent>
-                          <Input
-                            id="price-min-mobile"
-                            value={activeMinPrice}
-                            inputMode="numeric"
-                            placeholder={ABS_MIN_PRICE.toString()}
-                            onChange={(e) =>
-                              setFilter(
-                                "minPrice",
-                                e.target.value.replace(/[^\d.]/g, "")
-                              )
-                            }
-                          />
-                        </FieldContent>
-                      </FieldLabel>
-                    </Field>
-                    <Field orientation="vertical">
-                      <FieldLabel>
-                        <FieldTitle>
-                          <Label htmlFor="price-max-mobile">Max</Label>
-                        </FieldTitle>
-                        <FieldContent>
-                          <Input
-                            id="price-max-mobile"
-                            value={activeMaxPrice}
-                            inputMode="numeric"
-                            placeholder={ABS_MAX_PRICE.toString()}
-                            onChange={(e) =>
-                              setFilter(
-                                "maxPrice",
-                                e.target.value.replace(/[^\d.]/g, "")
-                              )
-                            }
-                          />
-                        </FieldContent>
-                      </FieldLabel>
-                    </Field>
+                    <div className="flex items-center justify-between text-sm text-muted-foreground">
+                      <span>${priceRange[0]}</span>
+                      <span>${priceRange[1]}</span>
+                    </div>
                   </div>
                 </div>
 
