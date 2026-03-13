@@ -25,7 +25,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <div className="group relative">
+    <div className="group relative bg-accent-foreground rounded overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
       {/* Image */}
       <Link href={`/product/${product.slug}`} className="block">
         <div className="aspect-3/4 bg-secondary rounded-sm overflow-hidden relative">
@@ -79,7 +79,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       </Link>
 
       {/* Details */}
-      <div className="mt-3 space-y-1">
+      <div className="mt-3 px-3 pb-3 space-y-1">
         <Link href={`/product/${product.slug}`}>
           <h3 className="text-sm font-medium font-body text-foreground leading-snug hover:text-rose-gold transition-colors">{product.name}</h3>
         </Link>
