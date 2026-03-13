@@ -17,7 +17,7 @@ const BlogPage = () => {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
         {blogPosts.map((post) => (
           <Link key={post.id} href={`/blog/${post.slug}`} className="group">
-            <div className="mb-4 aspect-[16/10] overflow-hidden rounded-sm bg-secondary">
+            <div className="mb-4 aspect-16/10 overflow-hidden rounded-sm bg-secondary">
               {post.image && (
                 <Image
                   src={post.image}
@@ -29,7 +29,7 @@ const BlogPage = () => {
               )}
             </div>
             <div className="mb-2 flex items-center gap-3">
-              <span className="font-body text-xs tracking-wider text-rose-gold uppercase">
+              <span className="font-body text-xs tracking-wider text-accent uppercase">
                 {post.category}
               </span>
               <span className="font-body text-xs text-muted-foreground">
@@ -40,7 +40,7 @@ const BlogPage = () => {
                 })}
               </span>
             </div>
-            <h2 className="font-heading text-lg leading-snug font-medium transition-colors group-hover:text-rose-gold">
+            <h2 className="font-heading text-lg leading-snug font-medium transition-colors group-hover:text-accent">
               {post.title}
             </h2>
             <p className="mt-2 line-clamp-2 font-body text-sm text-muted-foreground">

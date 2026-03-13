@@ -175,14 +175,14 @@ const ShopPage = () => {
           onClick={() => setFiltersOpen(!filtersOpen)}
           className="flex items-center gap-2 font-body text-sm"
         >
-          <SlidersHorizontal size={16} className={`${filtersOpen ? "text-rose-gold" : ""}`} /> Filters
+          <SlidersHorizontal size={16} className={`${filtersOpen ? "text-accent" : ""}`} /> Filters
           {(activeCategory ||
             activeMinPrice ||
             activeMaxPrice ||
             activeInStock ||
             activeNew ||
             activeBestSeller) && (
-            <span className="rounded-full bg-rose-gold px-2 py-0.5 text-[10px] text-accent-foreground">
+            <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] text-accent-foreground">
               {
                 [
                   Boolean(activeCategory),
@@ -226,7 +226,7 @@ const ShopPage = () => {
                 <div className="space-y-2">
                   <button
                     onClick={() => setFilter("category", "")}
-                    className={`block font-body text-sm ${!activeCategory ? "font-medium text-rose-gold" : "text-muted-foreground hover:text-foreground"}`}
+                    className={`block font-body text-sm ${!activeCategory ? "font-medium text-accent" : "text-muted-foreground hover:text-foreground"}`}
                   >
                     All Products
                   </button>
@@ -234,7 +234,7 @@ const ShopPage = () => {
                     <button
                       key={cat.id}
                       onClick={() => setFilter("category", cat.slug)}
-                      className={`block font-body text-sm ${activeCategory === cat.slug ? "font-medium text-rose-gold" : "text-muted-foreground hover:text-foreground"}`}
+                      className={`block font-body text-sm ${activeCategory === cat.slug ? "font-medium text-accent" : "text-muted-foreground hover:text-foreground"}`}
                     >
                       {cat.name}
                     </button>
@@ -419,7 +419,7 @@ const ShopPage = () => {
                   <div className="space-y-2">
                     <button
                       onClick={() => setFilter("category", "")}
-                      className={`block font-body text-sm ${!activeCategory ? "font-medium text-rose-gold" : "text-muted-foreground hover:text-foreground"}`}
+                      className={`block font-body text-sm ${!activeCategory ? "font-medium text-accent" : "text-muted-foreground hover:text-foreground"}`}
                     >
                       All Products
                     </button>
@@ -427,7 +427,7 @@ const ShopPage = () => {
                       <button
                         key={cat.id}
                         onClick={() => setFilter("category", cat.slug)}
-                        className={`block font-body text-sm ${activeCategory === cat.slug ? "font-medium text-rose-gold" : "text-muted-foreground hover:text-foreground"}`}
+                        className={`block font-body text-sm ${activeCategory === cat.slug ? "font-medium text-accent" : "text-muted-foreground hover:text-foreground"}`}
                       >
                         {cat.name}
                       </button>

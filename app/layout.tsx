@@ -11,6 +11,7 @@ import CartDrawer from "@/components/cart/CartDrawer"
 import AnnouncementBar from "@/components/layout/AnnouncementBar"
 import Header from "@/components/layout/Header"
 import Footer from "@/components/layout/Footer"
+import GoToTopButton from "@/components/ui/GoToTopButton"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -53,6 +54,7 @@ export default function RootLayout({
             <CartDrawer />
             {children}
             <Footer />
+            <GoToTopButton />
           </TooltipProvider>
         </ThemeProvider>
       </body>

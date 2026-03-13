@@ -32,13 +32,13 @@ const CartPage = () => {
                   key={item.product.id}
                   className="flex gap-5 border-b border-border pb-6"
                 >
-                  <div className="h-28 w-24 flex-shrink-0 rounded-sm bg-secondary" />
+                  <div className="h-28 w-24 shrink-0 rounded-sm bg-secondary" />
                   <div className="flex-1">
                     <div className="flex justify-between">
                       <div>
                         <Link
                           href={`/product/${item.product.slug}`}
-                          className="font-body text-sm font-medium hover:text-rose-gold"
+                          className="font-body text-sm font-medium hover:text-accent"
                         >
                           {item.product.name}
                         </Link>

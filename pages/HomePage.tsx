@@ -62,7 +62,7 @@ const HomePage = () => {
           width={1920}
           height={1080}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/60 via-foreground/30 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-foreground/60 via-foreground/30 to-transparent" />
         <div className="relative container-narrow flex h-full items-center">
           <motion.div
             initial="hidden"
@@ -116,7 +116,7 @@ const HomePage = () => {
               <Link
                 key={cat.id}
                 href={`/shop?category=${cat.slug}`}
-                className="group overflow-hidden rounded-sm bg-secondary p-4 text-center transition-all duration-300 hover:bg-rose-gold-light"
+                className="group overflow-hidden rounded bg-secondary p-4 text-center transition-all duration-300 hover:bg-accent-light"
               >
                 <div className="mx-auto mb-3 h-20 w-20 overflow-hidden rounded-full bg-background">
                   <Image
@@ -151,7 +151,7 @@ const HomePage = () => {
             </div>
             <Link
               href="/shop?sort=popular"
-              className="flex items-center gap-1 font-body text-sm text-foreground transition-colors hover:text-rose-gold"
+              className="flex items-center gap-1 font-body text-sm text-foreground transition-colors hover:text-accent"
             >
               View All <ChevronRight size={16} />
             </Link>
@@ -167,9 +167,9 @@ const HomePage = () => {
       {/* Promo Banner */}
       <section className="py-16 md:py-24">
         <div className="container-narrow">
-          <div className="relative flex flex-col items-center gap-8 overflow-hidden rounded-sm bg-foreground p-10 text-background md:flex-row md:p-16">
+          <div className="relative flex flex-col items-center gap-8 overflow-hidden rounded bg-foreground p-10 text-background md:flex-row md:p-16">
             <div className="flex-1">
-              <span className="font-body text-xs tracking-widest text-rose-gold uppercase">
+              <span className="font-body text-xs tracking-widest text-accent uppercase">
                 Limited Time Offer
               </span>
               <h2 className="mt-3 font-heading text-3xl leading-tight font-light md:text-5xl">
@@ -185,7 +185,7 @@ const HomePage = () => {
                 Sign Up Now
               </Link>
             </div>
-            <div className="h-48 w-48 flex-shrink-0 rounded-full bg-rose-gold/20 md:h-64 md:w-64" />
+            <div className="h-48 w-48 shrink-0 rounded-full bg-accent/20 md:h-64 md:w-64" />
           </div>
         </div>
       </section>
@@ -204,7 +204,7 @@ const HomePage = () => {
             </div>
             <Link
               href="/shop?sort=latest"
-              className="flex items-center gap-1 font-body text-sm text-foreground transition-colors hover:text-rose-gold"
+              className="flex items-center gap-1 font-body text-sm text-foreground transition-colors hover:text-accent"
             >
               View All <ChevronRight size={16} />
             </Link>
@@ -233,7 +233,7 @@ const HomePage = () => {
               <Link
                 key={concern.slug}
                 href={`/shop?concern=${concern.slug}`}
-                className="group relative aspect-square overflow-hidden rounded-sm"
+                className="group relative aspect-square overflow-hidden rounded"
               >
                 <Image
                   src={concern.image}
@@ -286,8 +286,8 @@ const HomePage = () => {
               },
             ].map((item) => (
               <div key={item.title} className="p-6 text-center">
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-rose-gold-light">
-                  <item.icon size={22} className="text-rose-gold" />
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-accent-light">
+                  <item.icon size={22} className="text-accent" />
                 </div>
                 <h3 className="mb-1 font-body text-sm font-semibold">
                   {item.title}
@@ -313,19 +313,19 @@ const HomePage = () => {
             {testimonials.map((t) => (
               <div
                 key={t.id}
-                className="rounded-sm border border-border bg-background p-6"
+                className="rounded border border-border bg-background p-6"
               >
                 <div className="mb-3 flex gap-0.5">
                   {Array.from({ length: t.rating }).map((_, i) => (
                     <Star
                       key={i}
                       size={14}
-                      className="fill-rose-gold text-rose-gold"
+                      className="fill-accent text-accent"
                     />
                   ))}
                 </div>
                 <p className="mb-4 font-body text-sm leading-relaxed text-foreground">
-                  "{t.text}"
+                  {t.text}
                 </p>
                 <p className="font-body text-xs font-semibold text-muted-foreground">
                   {t.name}
@@ -350,7 +350,7 @@ const HomePage = () => {
             </div>
             <Link
               href="/blog"
-              className="flex items-center gap-1 font-body text-sm text-foreground transition-colors hover:text-rose-gold"
+              className="flex items-center gap-1 font-body text-sm text-foreground transition-colors hover:text-accent"
             >
               All Articles <ChevronRight size={16} />
             </Link>
@@ -358,11 +358,21 @@ const HomePage = () => {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {blogPosts.map((post) => (
               <Link key={post.id} href={`/blog/${post.slug}`} className="group">
-                <div className="mb-4 aspect-[16/10] overflow-hidden rounded-sm bg-secondary" />
-                <span className="font-body text-xs tracking-wider text-rose-gold uppercase">
+                <div className="mb-4 aspect-16/10 overflow-hidden rounded bg-secondary">
+                  {post.image && (
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      width={800}
+                      height={512}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  )}
+                </div>
+                <span className="font-body text-xs tracking-wider text-accent uppercase">
                   {post.category}
                 </span>
-                <h3 className="mt-1 font-heading text-base leading-snug font-medium transition-colors group-hover:text-rose-gold">
+                <h3 className="mt-1 font-heading text-base leading-snug font-medium transition-colors group-hover:text-accent">
                   {post.title}
                 </h3>
                 <p className="mt-2 line-clamp-2 font-body text-sm text-muted-foreground">
@@ -370,27 +380,6 @@ const HomePage = () => {
                 </p>
               </Link>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter */}
-      <section className="bg-foreground py-16 text-background">
-        <div className="container-narrow mx-auto max-w-xl text-center">
-          <h2 className="font-heading text-3xl font-light md:text-4xl">
-            Join the Glow
-          </h2>
-          <p className="mt-3 font-body text-sm text-background/70">
-            Subscribe to receive exclusive offers, new product launches, and
-            skincare tips.
-          </p>
-          <div className="mx-auto mt-6 flex max-w-md">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 rounded-l-sm bg-background/10 px-4 py-3 font-body text-sm text-background placeholder:text-background/40 focus:outline-none"
-            />
-            <button className="btn-rose rounded-l-none">Subscribe</button>
           </div>
         </div>
       </section>

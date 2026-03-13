@@ -78,7 +78,7 @@ const Header = () => {
             </button>
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              <span className="font-heading text-2xl text-rose-gold font-semibold tracking-tight md:text-3xl">
+              <span className="font-heading text-2xl text-accent font-semibold tracking-tight md:text-3xl">
                 Glowsera
               </span>
             </Link>
@@ -101,34 +101,34 @@ const Header = () => {
           <div className="flex items-center gap-1 md:gap-3">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2 text-foreground transition-colors hover:text-rose-gold"
+              className="p-2 text-foreground transition-colors hover:text-accent"
             >
               <Search size={20} />
             </button>
             <Link
               href="/login"
-              className="p-2 text-foreground transition-colors hover:text-rose-gold"
+              className="p-2 text-foreground transition-colors hover:text-accent"
             >
               <User size={20} />
             </Link>
             <Link
               href="/wishlist"
-              className="relative p-2 text-foreground transition-colors hover:text-rose-gold"
+              className="relative p-2 text-foreground transition-colors hover:text-accent"
             >
               <Heart size={20} />
               {wishlistCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-rose-gold px-1 text-[10px] font-medium text-accent-foreground">
+                <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-medium text-accent-foreground">
                   {wishlistCount}
                 </span>
               )}
             </Link>
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2 text-foreground transition-colors hover:text-rose-gold"
+              className="relative p-2 text-foreground transition-colors hover:text-accent"
             >
               <ShoppingBag size={20} />
               {cartCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-rose-gold px-1 text-[10px] font-medium text-accent-foreground">
+                <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-medium text-accent-foreground">
                   {cartCount}
                 </span>
               )}
@@ -147,7 +147,7 @@ const Header = () => {
               <input
                 type="text"
                 placeholder="Search for products, ingredients, concerns..."
-                className="w-full rounded-sm bg-secondary py-3 pr-4 pl-12 font-body text-sm placeholder:text-muted-foreground focus:ring-1 focus:ring-rose-gold focus:outline-none"
+                className="w-full rounded-sm bg-secondary py-3 pr-4 pl-12 font-body text-sm placeholder:text-muted-foreground focus:ring-1 focus:ring-accent focus:outline-none"
                 autoFocus
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}

@@ -84,7 +84,7 @@ const ProductDetailPage = () => {
             {[0, 1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="aspect-square cursor-pointer overflow-hidden rounded-sm bg-secondary transition-all hover:ring-1 hover:ring-rose-gold"
+                className="aspect-square cursor-pointer overflow-hidden rounded-sm bg-secondary transition-all hover:ring-1 hover:ring-accent"
               >
                 {product.images?.[0] && (
                   <Image
@@ -102,7 +102,7 @@ const ProductDetailPage = () => {
 
         {/* Details */}
         <div>
-          <span className="font-body text-xs tracking-widest text-rose-gold uppercase">
+          <span className="font-body text-xs tracking-widest text-accent uppercase">
             {product.category}
           </span>
           <h1 className="mt-2 font-heading text-2xl font-light md:text-3xl">
@@ -117,7 +117,7 @@ const ProductDetailPage = () => {
                   size={14}
                   className={
                     i < Math.floor(product.rating)
-                      ? "fill-rose-gold text-rose-gold"
+                      ? "fill-accent text-accent"
                       : "text-border"
                   }
                 />
@@ -137,7 +137,7 @@ const ProductDetailPage = () => {
                 <span className="font-body text-lg text-muted-foreground line-through">
                   ৳{product.price.toLocaleString()}
                 </span>
-                <span className="rounded-sm bg-rose-gold px-2 py-0.5 font-body text-xs text-accent-foreground">
+                <span className="rounded-sm bg-accent px-2 py-0.5 font-body text-xs text-accent-foreground">
                   Save{" "}
                   {Math.round(
                     (1 - product.discountPrice / product.price) * 100
@@ -205,19 +205,19 @@ const ProductDetailPage = () => {
               </button>
               <button
                 onClick={handleBuyNow}
-                className="flex flex-1 items-center justify-center gap-2 text-sm rounded-sm bg-rose-gold px-2 py-2 font-body tracking-wider text-nowrap text-accent-foreground uppercase transition-colors hover:bg-rose-gold/90"
+                className="flex flex-1 items-center justify-center gap-2 text-sm rounded-sm bg-accent px-2 py-2 font-body tracking-wider text-nowrap text-accent-foreground uppercase transition-colors hover:bg-accent/90"
               >
                 <Zap size={13} /> Buy Now
               </button>
               <button
                 onClick={() => toggleItem(product)}
-                className={`rounded-sm border p-3 transition-colors ${wishlisted ? "border-rose-gold bg-rose-gold-light" : "border-border hover:border-rose-gold"}`}
+                className={`rounded-sm border p-3 transition-colors ${wishlisted ? "border-accent bg-accent-light" : "border-border hover:border-accent"}`}
               >
                 <Heart
                   size={20}
                   className={
                     wishlisted
-                      ? "fill-rose-gold text-rose-gold"
+                      ? "fill-accent text-accent"
                       : "text-foreground"
                   }
                 />
@@ -253,7 +253,7 @@ const ProductDetailPage = () => {
             <button
               key={tab}
               onClick={() => setActiveTab(i)}
-              className={`pb-3 font-body text-sm transition-colors ${i === activeTab ? "border-b-2 border-rose-gold font-medium text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+              className={`pb-3 font-body text-sm transition-colors ${i === activeTab ? "border-b-2 border-accent font-medium text-foreground" : "text-muted-foreground hover:text-foreground"}`}
             >
               {tab}
             </button>
@@ -270,7 +270,7 @@ const ProductDetailPage = () => {
                 ]
               ).map((b, i) => (
                 <li key={i} className="flex items-start gap-2">
-                  <span className="mt-1 text-rose-gold">•</span> {b}
+                  <span className="mt-1 text-accent">•</span> {b}
                 </li>
               ))}
             </ul>
