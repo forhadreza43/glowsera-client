@@ -12,9 +12,9 @@ const ContactPage = () => {
         <div>
           <h2 className="font-heading text-xl mb-6">Send us a message</h2>
           <div className="space-y-4">
-            <input type="text" placeholder="Your Name" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-accent" />
-            <input type="email" placeholder="Your Email" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-accent" />
-            <textarea placeholder="Your Message" rows={5} className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-accent resize-none" />
+            <input type="text" placeholder="Your Name" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-primary" />
+            <input type="email" placeholder="Your Email" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-primary" />
+            <textarea placeholder="Your Message" rows={5} className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-primary resize-none" />
             <button className="btn-rose">Send Message</button>
           </div>
         </div>
@@ -27,8 +27,8 @@ const ContactPage = () => {
             { icon: MapPin, label: "Address", value: "Dhaka, Bangladesh" },
           ].map(item => (
             <div key={item.label} className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-accent-light flex items-center justify-center shrink-0">
-                <item.icon size={18} className="text-accent" />
+              <div className="w-10 h-10 rounded-full bg-primary-light flex items-center justify-center shrink-0">
+                <item.icon size={18} className="text-primary" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground font-body uppercase tracking-wider">{item.label}</p>

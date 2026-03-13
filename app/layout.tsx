@@ -1,28 +1,23 @@
-import { Geist_Mono, Inter, Cormorant_Garamond } from "next/font/google"
-import { Suspense } from "react"
+import { Geist_Mono, Inter, Cormorant_Garamond } from 'next/font/google'
 
-import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils"
-import { TooltipProvider } from "@/components/ui/tooltip"
-import { Toaster } from "@/components/ui/sonner"
-import { Toaster as Sonner } from "@/components/ui/sonner"
-import CartDrawer from "@/components/cart/CartDrawer"
-import AnnouncementBar from "@/components/layout/AnnouncementBar"
-import Header from "@/components/layout/Header"
-import Footer from "@/components/layout/Footer"
-import GoToTopButton from "@/components/ui/GoToTopButton"
+import './globals.css'
+import { ThemeProvider } from '@/components/theme-provider'
+import { cn } from '@/lib/utils'
+import { TooltipProvider } from '@/components/ui/tooltip'
+import { Toaster } from '@/components/ui/sonner'
+import { Toaster as Sonner } from '@/components/ui/sonner'
+import { LayoutContent } from '@/components/layout-content'
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
+  subsets: ['latin'],
+  variable: '--font-mono',
 })
 
 const fontgaramond = Cormorant_Garamond({
-  subsets: ["latin"],
-  variable: "--font-serif",
+  subsets: ['latin'],
+  variable: '--font-serif',
 })
 
 export default function RootLayout({
@@ -35,10 +30,10 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
       className={cn(
-        "antialiased",
+        'antialiased',
         fontgaramond.variable,
         fontMono.variable,
-        "font-sans",
+        'font-sans',
         inter.variable
       )}
     >
@@ -47,14 +42,7 @@ export default function RootLayout({
           <TooltipProvider>
             <Toaster />
             <Sonner />
-            <AnnouncementBar />
-            <Suspense fallback={null}>
-              <Header />
-            </Suspense>
-            <CartDrawer />
-            {children}
-            <Footer />
-            <GoToTopButton />
+            <LayoutContent>{children}</LayoutContent>
           </TooltipProvider>
         </ThemeProvider>
       </body>

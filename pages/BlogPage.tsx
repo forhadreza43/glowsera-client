@@ -29,7 +29,7 @@ const BlogPage = () => {
               )}
             </div>
             <div className="mb-2 flex items-center gap-3">
-              <span className="font-body text-xs tracking-wider text-accent uppercase">
+              <span className="font-body text-xs tracking-wider text-primary uppercase">
                 {post.category}
               </span>
               <span className="font-body text-xs text-muted-foreground">
@@ -40,7 +40,7 @@ const BlogPage = () => {
                 })}
               </span>
             </div>
-            <h2 className="font-heading text-lg leading-snug font-medium transition-colors group-hover:text-accent">
+            <h2 className="font-heading text-lg leading-snug font-medium transition-colors group-hover:text-primary">
               {post.title}
             </h2>
             <p className="mt-2 line-clamp-2 font-body text-sm text-muted-foreground">

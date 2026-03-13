@@ -38,7 +38,7 @@ const CartPage = () => {
                       <div>
                         <Link
                           href={`/product/${item.product.slug}`}
-                          className="font-body text-sm font-medium hover:text-accent"
+                          className="font-body text-sm font-medium hover:text-primary"
                         >
                           {item.product.name}
                         </Link>

@@ -14,7 +14,7 @@ export default function NotFoundPage() {
     <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden">
       <Empty>
         <EmptyHeader>
-          <EmptyTitle className="text-accent mask-b-from-20% mask-b-to-80% text-9xl font-extrabold">
+          <EmptyTitle className="text-primary mask-b-from-20% mask-b-to-80% text-9xl font-extrabold">
             404
           </EmptyTitle>
           <EmptyDescription className="-mt-8 text-nowrap text-foreground/80">
@@ -24,8 +24,8 @@ export default function NotFoundPage() {
         </EmptyHeader>
         <EmptyContent>
           <div className="flex gap-2">
-            <Button asChild className="bg-accent hover:bg-accent/80">
-              <Link href="/" className="bg-accent hover:bg-accent/80">
+            <Button asChild className="bg-primary hover:bg-primary/80">
+              <Link href="/" className="bg-primary hover:bg-primary/80">
                 <HomeIcon data-icon="inline-start" />
                 Go Home
               </Link>

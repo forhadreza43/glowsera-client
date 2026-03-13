@@ -25,7 +25,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   }
 
   return (
-    <div className="group relative overflow-hidden rounded bg-accent-foreground shadow-sm transition-shadow duration-300 hover:shadow-md">
+    <div className="group relative overflow-hidden rounded bg-primary-foreground shadow-sm transition-shadow duration-300 hover:shadow-md">
       {/* Image */}
       <Link href={`/product/${product.slug}`} className="block">
         <div className="relative aspect-3/4 overflow-hidden rounded-sm bg-secondary">
@@ -49,7 +49,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               </span>
             )}
             {product.discountPrice && (
-              <span className="bg-accent px-2.5 py-1 font-body text-[10px] font-medium tracking-widest text-accent-foreground uppercase">
+              <span className="bg-primary px-2.5 py-1 font-body text-[10px] font-medium tracking-widest text-primary-foreground uppercase">
                 {Math.round((1 - product.discountPrice / product.price) * 100)}%
                 Off
               </span>
@@ -67,12 +67,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
               e.preventDefault()
               toggleItem(product)
             }}
-            className={`absolute shadow top-3 right-3 z-10 rounded-full bg-background/80 p-2 backdrop-blur-sm transition-all duration-300 hover:bg-background ${wishlisted ? " opacity-100" : "md:opacity-0 md:group-hover:opacity-100"}`}
+            className={`absolute top-3 right-3 z-10 rounded-full bg-background/80 p-2 shadow backdrop-blur-sm transition-all duration-300 hover:bg-background ${wishlisted ? 'opacity-100' : 'md:opacity-0 md:group-hover:opacity-100'}`}
           >
             <Heart
               size={16}
               className={
-                wishlisted ? "fill-accent text-accent" : "text-foreground"
+                wishlisted ? 'fill-primary text-primary' : 'text-foreground'
               }
             />
           </button>
@@ -85,13 +85,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
                   e.preventDefault()
                   addItem(product)
                 }}
-                className="flex flex-1 items-center justify-center gap-1.5 rounded-sm bg-accent px-2 py-2 font-body text-[11px] font-medium tracking-wider text-nowrap text-background uppercase transition-colors md:bg-foreground/90 md:hover:bg-foreground"
+                className="flex flex-1 items-center justify-center gap-1.5 rounded-sm bg-primary px-2 py-2 font-body text-[11px] font-medium tracking-wider text-nowrap text-background uppercase transition-colors md:bg-foreground md:hover:bg-foreground/90"
               >
                 <ShoppingBag size={13} /> Add to Bag
               </button>
               <button
                 onClick={handleBuyNow}
-                className="hidden flex-1 items-center justify-center gap-1.5 rounded-sm bg-accent px-2 py-2 font-body text-[11px] font-medium tracking-wider text-nowrap text-accent-foreground uppercase transition-colors hover:bg-accent/90 md:flex"
+                className="hidden flex-1 items-center justify-center gap-1.5 rounded-sm bg-primary px-2 py-2 font-body text-[11px] font-medium tracking-wider text-nowrap text-primary-foreground uppercase transition-colors hover:bg-primary/90 md:flex"
               >
                 <Zap size={13} /> Buy Now
               </button>
@@ -103,7 +103,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       {/* Details */}
       <div className="mt-3 space-y-1 px-3 pb-3">
         <Link href={`/product/${product.slug}`}>
-          <h3 className="font-body text-sm leading-snug font-medium text-foreground transition-colors hover:text-accent">
+          <h3 className="font-body text-sm leading-snug font-medium text-foreground transition-colors hover:text-primary">
             {product.name}
           </h3>
         </Link>
@@ -112,7 +112,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </p>
         <div className="flex items-center gap-1.5">
           <div className="flex items-center gap-0.5">
-            <Star size={12} className="fill-accent text-accent" />
+            <Star size={12} className="fill-primary text-primary" />
             <span className="font-body text-xs font-medium">
               {product.rating}
             </span>

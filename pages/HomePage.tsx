@@ -116,7 +116,7 @@ const HomePage = () => {
               <Link
                 key={cat.id}
                 href={`/shop?category=${cat.slug}`}
-                className="group overflow-hidden rounded bg-secondary p-4 text-center transition-all duration-300 hover:bg-accent-light"
+                className="group overflow-hidden rounded bg-secondary p-4 text-center transition-all duration-300 hover:bg-primary-light"
               >
                 <div className="mx-auto mb-3 h-20 w-20 overflow-hidden rounded-full bg-background">
                   <Image
@@ -151,7 +151,7 @@ const HomePage = () => {
             </div>
             <Link
               href="/shop?sort=popular"
-              className="flex items-center gap-1 font-body text-sm text-foreground transition-colors hover:text-accent"
+              className="flex items-center gap-1 font-body text-sm text-foreground transition-colors hover:text-primary"
             >
               View All <ChevronRight size={16} />
             </Link>
@@ -169,7 +169,7 @@ const HomePage = () => {
         <div className="container-narrow">
           <div className="relative flex flex-col items-center gap-8 overflow-hidden rounded bg-foreground p-10 text-background md:flex-row md:p-16">
             <div className="flex-1">
-              <span className="font-body text-xs tracking-widest text-accent uppercase">
+              <span className="font-body text-xs tracking-widest text-primary uppercase">
                 Limited Time Offer
               </span>
               <h2 className="mt-3 font-heading text-3xl leading-tight font-light md:text-5xl">
@@ -185,7 +185,7 @@ const HomePage = () => {
                 Sign Up Now
               </Link>
             </div>
-            <div className="h-48 w-48 shrink-0 rounded-full bg-accent/20 md:h-64 md:w-64" />
+            <div className="h-48 w-48 shrink-0 rounded-full bg-primary/20 md:h-64 md:w-64" />
           </div>
         </div>
       </section>
@@ -204,7 +204,7 @@ const HomePage = () => {
             </div>
             <Link
               href="/shop?sort=latest"
-              className="flex items-center gap-1 font-body text-sm text-foreground transition-colors hover:text-accent"
+              className="flex items-center gap-1 font-body text-sm text-foreground transition-colors hover:text-primary"
             >
               View All <ChevronRight size={16} />
             </Link>
@@ -286,8 +286,8 @@ const HomePage = () => {
               },
             ].map((item) => (
               <div key={item.title} className="p-6 text-center">
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-accent-light">
-                  <item.icon size={22} className="text-accent" />
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary-light">
+                  <item.icon size={22} className="text-primary" />
                 </div>
                 <h3 className="mb-1 font-body text-sm font-semibold">
                   {item.title}
@@ -320,7 +320,7 @@ const HomePage = () => {
                     <Star
                       key={i}
                       size={14}
-                      className="fill-accent text-accent"
+                      className="fill-primary text-primary"
                     />
                   ))}
                 </div>
@@ -350,7 +350,7 @@ const HomePage = () => {
             </div>
             <Link
               href="/blog"
-              className="flex items-center gap-1 font-body text-sm text-foreground transition-colors hover:text-accent"
+              className="flex items-center gap-1 font-body text-sm text-foreground transition-colors hover:text-primary"
             >
               All Articles <ChevronRight size={16} />
             </Link>
@@ -369,10 +369,10 @@ const HomePage = () => {
                     />
                   )}
                 </div>
-                <span className="font-body text-xs tracking-wider text-accent uppercase">
+                <span className="font-body text-xs tracking-wider text-primary uppercase">
                   {post.category}
                 </span>
-                <h3 className="mt-1 font-heading text-base leading-snug font-medium transition-colors group-hover:text-accent">
+                <h3 className="mt-1 font-heading text-base leading-snug font-medium transition-colors group-hover:text-primary">
                   {post.title}
                 </h3>
                 <p className="mt-2 line-clamp-2 font-body text-sm text-muted-foreground">

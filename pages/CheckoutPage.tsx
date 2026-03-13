@@ -29,7 +29,7 @@ const CheckoutPage = () => {
         {steps.map((s, i) => (
           <div key={s} className="flex items-center gap-2">
             <button onClick={() => i <= step && setStep(i)}
-              className={`text-xs tracking-wider uppercase font-body ${i === step ? "text-foreground font-semibold" : i < step ? "text-accent" : "text-muted-foreground"}`}>
+              className={`text-xs tracking-wider uppercase font-body ${i === step ? "text-foreground font-semibold" : i < step ? "text-primary" : "text-muted-foreground"}`}>
               {s}
             </button>
             {i < steps.length - 1 && <span className="text-border">—</span>}
@@ -42,9 +42,9 @@ const CheckoutPage = () => {
           {step === 0 && (
             <div className="space-y-4">
               <h2 className="font-heading text-xl mb-4">Contact Information</h2>
-              <input type="text" placeholder="Full Name" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-accent" />
-              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-accent" />
-              <input type="tel" placeholder="Phone Number" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-accent" />
+              <input type="text" placeholder="Full Name" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-primary" />
+              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-primary" />
+              <input type="tel" placeholder="Phone Number" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-primary" />
               <button onClick={() => setStep(1)} className="btn-rose mt-4">Continue to Shipping</button>
             </div>
           )}
@@ -52,10 +52,10 @@ const CheckoutPage = () => {
           {step === 1 && (
             <div className="space-y-4">
               <h2 className="font-heading text-xl mb-4">Shipping Address</h2>
-              <input type="text" placeholder="Street Address" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-accent" />
+              <input type="text" placeholder="Street Address" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-primary" />
               <div className="grid grid-cols-2 gap-4">
-                <input type="text" placeholder="City" className="px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-accent" />
-                <input type="text" placeholder="Postal Code" className="px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-accent" />
+                <input type="text" placeholder="City" className="px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-primary" />
+                <input type="text" placeholder="Postal Code" className="px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-primary" />
               </div>
               <button onClick={() => setStep(2)} className="btn-rose mt-4">Continue to Payment</button>
             </div>
@@ -69,9 +69,9 @@ const CheckoutPage = () => {
                 { id: "ssl", label: "Online Payment", desc: "Credit/Debit Card, Mobile Banking" },
               ].map(method => (
                 <label key={method.id}
-                  className={`flex items-start gap-4 p-4 border rounded-sm cursor-pointer transition-colors ${paymentMethod === method.id ? "border-accent bg-accent-light" : "border-border hover:border-muted-foreground"}`}>
+                  className={`flex items-start gap-4 p-4 border rounded-sm cursor-pointer transition-colors ${paymentMethod === method.id ? "border-primary bg-primary-light" : "border-border hover:border-muted-foreground"}`}>
                   <input type="radio" name="payment" value={method.id} checked={paymentMethod === method.id}
-                    onChange={() => setPaymentMethod(method.id)} className="mt-1 accent-accent" />
+                    onChange={() => setPaymentMethod(method.id)} className="mt-1 primary-primary" />
                   <div>
                     <p className="text-sm font-medium font-body">{method.label}</p>
                     <p className="text-xs text-muted-foreground font-body">{method.desc}</p>

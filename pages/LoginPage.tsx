@@ -18,18 +18,18 @@ const LoginPage = () => {
 
         <div className="space-y-4">
           {isRegister && (
-            <input type="text" placeholder="Full Name" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-accent" />
+            <input type="text" placeholder="Full Name" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-primary" />
           )}
-          <input type="email" placeholder="Email Address" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-accent" />
-          <input type="password" placeholder="Password" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-accent" />
+          <input type="email" placeholder="Email Address" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-primary" />
+          <input type="password" placeholder="Password" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-primary" />
           {isRegister && (
-            <input type="password" placeholder="Confirm Password" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-accent" />
+            <input type="password" placeholder="Confirm Password" className="w-full px-4 py-3 text-sm border border-border rounded-sm bg-background font-body focus:outline-none focus:ring-1 focus:ring-primary" />
           )}
 
           <button className="w-full btn-rose">{isRegister ? "Create Account" : "Sign In"}</button>
 
           {!isRegister && (
-            <Link href="/forgot-password" className="block text-center text-xs text-muted-foreground hover:text-accent font-body">
+            <Link href="/forgot-password" className="block text-center text-xs text-muted-foreground hover:text-primary font-body">
               Forgot your password?
             </Link>
           )}
@@ -38,7 +38,7 @@ const LoginPage = () => {
         <div className="mt-8 text-center">
           <p className="text-sm text-muted-foreground font-body">
             {isRegister ? "Already have an account?" : "Don't have an account?"}{" "}
-            <button onClick={() => setIsRegister(!isRegister)} className="text-accent hover:underline font-medium">
+            <button onClick={() => setIsRegister(!isRegister)} className="text-primary hover:underline font-medium">
               {isRegister ? "Sign In" : "Register"}
             </button>
           </p>

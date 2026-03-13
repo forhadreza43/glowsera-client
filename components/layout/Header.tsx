@@ -1,19 +1,20 @@
-"use client"
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import { Search, User, Heart, ShoppingBag, Menu, X } from "lucide-react"
-import { useCart } from "@/stores/cartStore"
-import { useWishlist } from "@/stores/wishlistStore"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useDebouncedValue } from "@/hooks/useDebouncedValue"
+'use client'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { Search, User, Heart, ShoppingBag, Menu, X } from 'lucide-react'
+import { useCart } from '@/stores/cartStore'
+import { useWishlist } from '@/stores/wishlistStore'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 
 const navLinks = [
-  { label: "Shop", href: "/shop" },
-  { label: "Skincare", href: "/shop?category=serums" },
-  { label: "Hair Care", href: "/shop?category=hair-care" },
-  { label: "Blog", href: "/blog" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: 'Shop', href: '/shop' },
+  { label: 'Skincare', href: '/shop?category=serums' },
+  { label: 'Hair Care', href: '/shop?category=hair-care' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+  { label: 'Dashboard', href: '/dashboard' },
 ]
 
 const Header = () => {
@@ -25,13 +26,40 @@ const Header = () => {
   const cartItems = useCart((s) => s.items)
   const setIsCartOpen = useCart((s) => s.setIsCartOpen)
   const wishlistItems = useWishlist((s) => s.items)
-  const [searchValue, setSearchValue] = useState(searchParams?.get("q") || "")
+  const [searchValue, setSearchValue] = useState(searchParams?.get('q') || '')
 
   const cartCount = cartItems.reduce((sum, i) => sum + i.quantity, 0)
   const wishlistCount = wishlistItems.length
 
   const debouncedSearchValue = useDebouncedValue(searchValue, 350)
-  const urlQuery = searchParams?.get("q") || ""
+  const urlQuery = searchParams?.get('q') || ''
+
+  // Helper function to check if a nav link is active
+  const isActiveLink = (href: string) => {
+    if (href === '/') {
+      return pathname === '/'
+    }
+
+    // Handle links with query parameters
+    if (href.includes('?')) {
+      const url = new URL(href, 'http://localhost:3000')
+      const linkPathname = url.pathname
+      const linkSearchParams = url.searchParams
+
+      // Check if pathname matches
+      if (pathname !== linkPathname) return false
+
+      // Check if all query params match
+      for (const [key, value] of linkSearchParams.entries()) {
+        if (searchParams?.get(key) !== value) return false
+      }
+
+      return true
+    }
+
+    // Simple pathname match
+    return pathname === href
+  }
 
   // Keep input in sync with URL when search opens
   useEffect(() => {
@@ -45,23 +73,23 @@ const Header = () => {
     if (!searchOpen) return
 
     const q = debouncedSearchValue.trim()
-    const currentQs = searchParams?.toString() || ""
+    const currentQs = searchParams?.toString() || ''
 
     // If user is not on /shop and query is empty, don't navigate.
-    if (pathname !== "/shop" && !q) return
+    if (pathname !== '/shop' && !q) return
 
     const baseParams =
-      pathname === "/shop"
+      pathname === '/shop'
         ? new URLSearchParams(currentQs || undefined)
         : new URLSearchParams()
 
-    if (q) baseParams.set("q", q)
-    else baseParams.delete("q")
+    if (q) baseParams.set('q', q)
+    else baseParams.delete('q')
 
     const qs = baseParams.toString()
     // Avoid pushing the same URL repeatedly.
-    if (pathname === "/shop" && qs === currentQs) return
-    router.push(`/shop${qs ? `?${qs}` : ""}`)
+    if (pathname === '/shop' && qs === currentQs) return
+    router.push(`/shop${qs ? `?${qs}` : ''}`)
   }, [debouncedSearchValue, pathname, router, searchOpen, searchParams])
 
   return (
@@ -78,7 +106,7 @@ const Header = () => {
             </button>
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              <span className="font-heading text-2xl text-accent font-semibold tracking-tight md:text-3xl">
+              <span className="font-heading text-2xl font-semibold tracking-tight text-primary md:text-3xl">
                 Glowsera
               </span>
             </Link>
@@ -90,7 +118,11 @@ const Header = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className="font-body text-sm tracking-wide text-muted-foreground transition-colors hover:text-foreground"
+                className={`font-body text-sm tracking-wide transition-colors ${
+                  isActiveLink(link.href)
+                    ? 'font-medium text-primary'
+                    : 'text-muted-foreground hover:text-primary'
+                }`}
               >
                 {link.label}
               </Link>
@@ -101,34 +133,34 @@ const Header = () => {
           <div className="flex items-center gap-1 md:gap-3">
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2 text-foreground transition-colors hover:text-accent"
+              className="p-2 text-foreground transition-colors hover:text-primary"
             >
               <Search size={20} />
             </button>
             <Link
               href="/login"
-              className="p-2 text-foreground transition-colors hover:text-accent"
+              className="p-2 text-foreground transition-colors hover:text-primary"
             >
               <User size={20} />
             </Link>
             <Link
               href="/wishlist"
-              className="relative p-2 text-foreground transition-colors hover:text-accent"
+              className="relative p-2 text-foreground transition-colors hover:text-primary"
             >
               <Heart size={20} />
               {wishlistCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-medium text-accent-foreground">
+                <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-medium text-primary-foreground">
                   {wishlistCount}
                 </span>
               )}
             </Link>
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative p-2 text-foreground transition-colors hover:text-accent"
+              className="relative p-2 text-foreground transition-colors hover:text-primary"
             >
               <ShoppingBag size={20} />
               {cartCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-medium text-accent-foreground">
+                <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-medium text-primary-foreground">
                   {cartCount}
                 </span>
               )}
@@ -147,24 +179,24 @@ const Header = () => {
               <input
                 type="text"
                 placeholder="Search for products, ingredients, concerns..."
-                className="w-full rounded-sm bg-secondary py-3 pr-4 pl-12 font-body text-sm placeholder:text-muted-foreground focus:ring-1 focus:ring-accent focus:outline-none"
+                className="w-full rounded-sm bg-secondary py-3 pr-4 pl-12 font-body text-sm placeholder:text-muted-foreground focus:ring-1 focus:ring-primary focus:outline-none"
                 autoFocus
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key !== "Enter") return
+                  if (e.key !== 'Enter') return
                   const q = searchValue.trim()
-                  const currentQs = searchParams?.toString() || ""
-                  if (pathname !== "/shop" && !q) return
+                  const currentQs = searchParams?.toString() || ''
+                  if (pathname !== '/shop' && !q) return
                   const baseParams =
-                    pathname === "/shop"
+                    pathname === '/shop'
                       ? new URLSearchParams(currentQs || undefined)
                       : new URLSearchParams()
-                  if (q) baseParams.set("q", q)
-                  else baseParams.delete("q")
+                  if (q) baseParams.set('q', q)
+                  else baseParams.delete('q')
                   const qs = baseParams.toString()
-                  if (pathname === "/shop" && qs === currentQs) return
-                  router.push(`/shop${qs ? `?${qs}` : ""}`)
+                  if (pathname === '/shop' && qs === currentQs) return
+                  router.push(`/shop${qs ? `?${qs}` : ''}`)
                 }}
               />
             </div>
@@ -181,7 +213,11 @@ const Header = () => {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="py-2 font-body text-sm tracking-wide text-foreground"
+                className={`py-2 font-body text-sm tracking-wide transition-colors ${
+                  isActiveLink(link.href)
+                    ? 'font-medium text-primary'
+                    : 'text-foreground hover:text-primary'
+                }`}
               >
                 {link.label}
               </Link>

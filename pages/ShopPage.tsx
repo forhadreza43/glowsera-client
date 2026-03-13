@@ -1,20 +1,20 @@
-"use client"
-import { useMemo, useState, useEffect } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { SlidersHorizontal, X } from "lucide-react"
-import ProductCard from "@/components/product/ProductCard"
-import { products, categories } from "@/data/mockData"
-import { Slider } from "@/components/ui/slider"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Field } from "@/components/ui/field"
-import { Label } from "@/components/ui/label"
+'use client'
+import { useMemo, useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { SlidersHorizontal, X } from 'lucide-react'
+import ProductCard from '@/components/product/ProductCard'
+import { products, categories } from '@/data/mockData'
+import { Slider } from '@/components/ui/slider'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Field } from '@/components/ui/field'
+import { Label } from '@/components/ui/label'
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
-} from "@/components/ui/drawer"
+} from '@/components/ui/drawer'
 import {
   Select,
   SelectContent,
@@ -22,14 +22,14 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { useIsMobile } from "@/hooks/use-mobile"
+} from '@/components/ui/select'
+import { useIsMobile } from '@/hooks/use-mobile'
 
 const sortOptions = [
-  { label: "Latest", value: "latest" },
-  { label: "Price: Low to High", value: "price-asc" },
-  { label: "Price: High to Low", value: "price-desc" },
-  { label: "Most Popular", value: "popular" },
+  { label: 'Latest', value: 'latest' },
+  { label: 'Price: Low to High', value: 'price-asc' },
+  { label: 'Price: High to Low', value: 'price-desc' },
+  { label: 'Most Popular', value: 'popular' },
 ]
 
 const ShopPage = () => {
@@ -38,14 +38,14 @@ const ShopPage = () => {
   const isMobile = useIsMobile()
   const router = useRouter()
 
-  const activeCategory = searchParams?.get("category") || ""
-  const activeSort = searchParams?.get("sort") || "latest"
-  const activeQuery = searchParams?.get("q") || ""
-  const activeMinPrice = searchParams?.get("minPrice") || ""
-  const activeMaxPrice = searchParams?.get("maxPrice") || ""
-  const activeInStock = (searchParams?.get("inStock") || "") === "1"
-  const activeNew = (searchParams?.get("new") || "") === "1"
-  const activeBestSeller = (searchParams?.get("bestSeller") || "") === "1"
+  const activeCategory = searchParams?.get('category') || ''
+  const activeSort = searchParams?.get('sort') || 'latest'
+  const activeQuery = searchParams?.get('q') || ''
+  const activeMinPrice = searchParams?.get('minPrice') || ''
+  const activeMaxPrice = searchParams?.get('maxPrice') || ''
+  const activeInStock = (searchParams?.get('inStock') || '') === '1'
+  const activeNew = (searchParams?.get('new') || '') === '1'
+  const activeBestSeller = (searchParams?.get('bestSeller') || '') === '1'
 
   const DEFAULT_MIN_PRICE = 50
   const DEFAULT_MAX_PRICE = 100000
@@ -58,10 +58,11 @@ const ShopPage = () => {
 
   // Keep the URL in sync with search params without triggering navigation loops
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (typeof window === 'undefined') return
 
-    const currentSearch = window.location.search || ""
-    const desiredSearch = `?${searchParams?.toString()}`
+    const currentSearch = window.location.search || ''
+    const searchParamsString = searchParams?.toString() || ''
+    const desiredSearch = searchParamsString ? `?${searchParamsString}` : ''
 
     if (currentSearch !== desiredSearch) {
       router.replace(desiredSearch)
@@ -71,7 +72,7 @@ const ShopPage = () => {
   const activeCategorySlugs = useMemo(() => {
     if (!activeCategory.trim()) return []
     return activeCategory
-      .split(",")
+      .split(',')
       .map((s) => s.trim())
       .filter(Boolean)
   }, [activeCategory])
@@ -80,7 +81,7 @@ const ShopPage = () => {
     let filtered = [...products]
     if (activeCategorySlugs.length > 0) {
       filtered = filtered.filter((p) => {
-        const categorySlug = p.category.toLowerCase().replace(/\s+/g, "-")
+        const categorySlug = p.category.toLowerCase().replace(/\s+/g, '-')
         return activeCategorySlugs.includes(categorySlug)
       })
     }
@@ -95,7 +96,7 @@ const ShopPage = () => {
           ...(p.tags || []),
         ]
           .filter(Boolean)
-          .join(" ")
+          .join(' ')
           .toLowerCase()
         return haystack.includes(q)
       })
@@ -113,17 +114,17 @@ const ShopPage = () => {
     }
 
     switch (activeSort) {
-      case "price-asc":
+      case 'price-asc':
         filtered.sort(
           (a, b) => (a.discountPrice || a.price) - (b.discountPrice || b.price)
         )
         break
-      case "price-desc":
+      case 'price-desc':
         filtered.sort(
           (a, b) => (b.discountPrice || b.price) - (a.discountPrice || a.price)
         )
         break
-      case "popular":
+      case 'popular':
         filtered.sort((a, b) => b.reviewCount - a.reviewCount)
         break
     }
@@ -146,7 +147,7 @@ const ShopPage = () => {
 
   const setBoolFilter = (key: string, enabled: boolean) => {
     const params = new URLSearchParams(searchParams?.toString() || undefined)
-    if (enabled) params.set(key, "1")
+    if (enabled) params.set(key, '1')
     else params.delete(key)
     router.push(`?${params.toString()}`)
   }
@@ -156,11 +157,11 @@ const ShopPage = () => {
     const params = new URLSearchParams(searchParams?.toString() || undefined)
 
     // Do not keep price filters in URL at the defaults
-    if (min > 50) params.set("minPrice", String(min))
-    else params.delete("minPrice")
+    if (min > 50) params.set('minPrice', String(min))
+    else params.delete('minPrice')
 
-    if (max < 100000) params.set("maxPrice", String(max))
-    else params.delete("maxPrice")
+    if (max < 100000) params.set('maxPrice', String(max))
+    else params.delete('maxPrice')
 
     router.push(`?${params.toString()}`)
   }
@@ -185,8 +186,8 @@ const ShopPage = () => {
         >
           <SlidersHorizontal
             size={16}
-            className={`${filtersOpen ? "text-accent" : ""}`}
-          />{" "}
+            className={`${filtersOpen ? 'text-primary' : ''}`}
+          />{' '}
           Filters
           {(activeCategory ||
             activeMinPrice ||
@@ -194,7 +195,7 @@ const ShopPage = () => {
             activeInStock ||
             activeNew ||
             activeBestSeller) && (
-            <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] text-accent-foreground">
+            <span className="rounded-full bg-primary px-2 py-0.5 text-[10px] text-primary-foreground">
               {
                 [
                   Boolean(activeCategory),
@@ -208,7 +209,7 @@ const ShopPage = () => {
           )}
         </button>
         <Select
-          onValueChange={(value) => setFilter("sort", value)}
+          onValueChange={(value) => setFilter('sort', value)}
           defaultValue={activeSort}
         >
           <SelectTrigger className="w-48 rounded border border-border bg-transparent px-3 py-2 font-body text-sm focus:outline-none">
@@ -237,16 +238,16 @@ const ShopPage = () => {
                 </h3>
                 <div className="space-y-2">
                   <button
-                    onClick={() => setFilter("category", "")}
-                    className={`block font-body text-sm ${!activeCategory ? "font-medium text-accent" : "text-muted-foreground hover:text-foreground"}`}
+                    onClick={() => setFilter('category', '')}
+                    className={`block font-body text-sm ${!activeCategory ? 'font-medium text-primary' : 'text-muted-foreground hover:text-foreground'}`}
                   >
                     All Products
                   </button>
                   {categories.map((cat) => (
                     <button
                       key={cat.id}
-                      onClick={() => setFilter("category", cat.slug)}
-                      className={`block font-body text-sm ${activeCategory === cat.slug ? "font-medium text-accent" : "text-muted-foreground hover:text-foreground"}`}
+                      onClick={() => setFilter('category', cat.slug)}
+                      className={`block font-body text-sm ${activeCategory === cat.slug ? 'font-medium text-primary' : 'text-muted-foreground hover:text-foreground'}`}
                     >
                       {cat.name}
                     </button>
@@ -264,7 +265,9 @@ const ShopPage = () => {
                     max={100000}
                     step={50}
                     value={priceRange}
-                    onValueChange={(value) => setPriceRange(value as [number, number])}
+                    onValueChange={(value) =>
+                      setPriceRange(value as [number, number])
+                    }
                     onValueCommit={applyPriceFilter}
                   />
                   <div className="flex items-center justify-between text-sm text-muted-foreground">
@@ -283,7 +286,7 @@ const ShopPage = () => {
                     id="in-stock-checkbox"
                     checked={activeInStock}
                     onCheckedChange={(checked) =>
-                      setBoolFilter("inStock", Boolean(checked))
+                      setBoolFilter('inStock', Boolean(checked))
                     }
                   />
                   <Label
@@ -305,7 +308,7 @@ const ShopPage = () => {
                       id="popular-checkbox"
                       checked={activeBestSeller}
                       onCheckedChange={(checked) =>
-                        setBoolFilter("bestSeller", Boolean(checked))
+                        setBoolFilter('bestSeller', Boolean(checked))
                       }
                     />
                     <Label
@@ -320,7 +323,7 @@ const ShopPage = () => {
                       id="new-checkbox"
                       checked={activeNew}
                       onCheckedChange={(checked) =>
-                        setBoolFilter("new", Boolean(checked))
+                        setBoolFilter('new', Boolean(checked))
                       }
                     />
                     <Label
@@ -345,12 +348,12 @@ const ShopPage = () => {
                       searchParams?.toString() || undefined
                     )
                     ;[
-                      "category",
-                      "minPrice",
-                      "maxPrice",
-                      "inStock",
-                      "new",
-                      "bestSeller",
+                      'category',
+                      'minPrice',
+                      'maxPrice',
+                      'inStock',
+                      'new',
+                      'bestSeller',
                     ].forEach((k) => params.delete(k))
                     router.push(`?${params.toString()}`)
                   }}
@@ -388,16 +391,16 @@ const ShopPage = () => {
                   </h3>
                   <div className="space-y-2">
                     <button
-                      onClick={() => setFilter("category", "")}
-                      className={`block font-body text-sm ${!activeCategory ? "font-medium text-accent" : "text-muted-foreground hover:text-foreground"}`}
+                      onClick={() => setFilter('category', '')}
+                      className={`block font-body text-sm ${!activeCategory ? 'font-medium text-primary' : 'text-muted-foreground hover:text-foreground'}`}
                     >
                       All Products
                     </button>
                     {categories.map((cat) => (
                       <button
                         key={cat.id}
-                        onClick={() => setFilter("category", cat.slug)}
-                        className={`block font-body text-sm ${activeCategory === cat.slug ? "font-medium text-accent" : "text-muted-foreground hover:text-foreground"}`}
+                        onClick={() => setFilter('category', cat.slug)}
+                        className={`block font-body text-sm ${activeCategory === cat.slug ? 'font-medium text-primary' : 'text-muted-foreground hover:text-foreground'}`}
                       >
                         {cat.name}
                       </button>
@@ -415,7 +418,9 @@ const ShopPage = () => {
                       max={100000}
                       step={50}
                       value={priceRange}
-                      onValueChange={(value) => setPriceRange(value as [number, number])}
+                      onValueChange={(value) =>
+                        setPriceRange(value as [number, number])
+                      }
                       onValueCommit={applyPriceFilter}
                     />
                     <div className="flex items-center justify-between text-sm text-muted-foreground">
@@ -434,7 +439,7 @@ const ShopPage = () => {
                       id="in-stock-checkbox-mobile"
                       checked={activeInStock}
                       onCheckedChange={(checked) =>
-                        setBoolFilter("inStock", Boolean(checked))
+                        setBoolFilter('inStock', Boolean(checked))
                       }
                     />
                     <Label
@@ -456,7 +461,7 @@ const ShopPage = () => {
                         id="popular-checkbox-mobile"
                         checked={activeBestSeller}
                         onCheckedChange={(checked) =>
-                          setBoolFilter("bestSeller", Boolean(checked))
+                          setBoolFilter('bestSeller', Boolean(checked))
                         }
                       />
                       <Label
@@ -471,7 +476,7 @@ const ShopPage = () => {
                         id="new-checkbox-mobile"
                         checked={activeNew}
                         onCheckedChange={(checked) =>
-                          setBoolFilter("new", Boolean(checked))
+                          setBoolFilter('new', Boolean(checked))
                         }
                       />
                       <Label
@@ -496,12 +501,12 @@ const ShopPage = () => {
                         searchParams?.toString() || undefined
                       )
                       ;[
-                        "category",
-                        "minPrice",
-                        "maxPrice",
-                        "inStock",
-                        "new",
-                        "bestSeller",
+                        'category',
+                        'minPrice',
+                        'maxPrice',
+                        'inStock',
+                        'new',
+                        'bestSeller',
                       ].forEach((k) => params.delete(k))
                       router.push(`?${params.toString()}`)
                     }}
@@ -524,7 +529,7 @@ const ShopPage = () => {
             <div className="flex flex-wrap gap-2">
               {activeCategory && (
                 <button
-                  onClick={() => setFilter("category", "")}
+                  onClick={() => setFilter('category', '')}
                   className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1.5 font-body text-xs"
                 >
                   {activeCategory} <X size={12} />
@@ -533,8 +538,8 @@ const ShopPage = () => {
               {(activeMinPrice || activeMaxPrice) && (
                 <button
                   onClick={() => {
-                    setFilter("minPrice", "")
-                    setFilter("maxPrice", "")
+                    setFilter('minPrice', '')
+                    setFilter('maxPrice', '')
                   }}
                   className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1.5 font-body text-xs"
                 >
@@ -543,7 +548,7 @@ const ShopPage = () => {
               )}
               {activeInStock && (
                 <button
-                  onClick={() => setBoolFilter("inStock", false)}
+                  onClick={() => setBoolFilter('inStock', false)}
                   className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1.5 font-body text-xs"
                 >
                   In stock <X size={12} />
@@ -551,7 +556,7 @@ const ShopPage = () => {
               )}
               {activeBestSeller && (
                 <button
-                  onClick={() => setBoolFilter("bestSeller", false)}
+                  onClick={() => setBoolFilter('bestSeller', false)}
                   className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1.5 font-body text-xs"
                 >
                   Popular <X size={12} />
@@ -559,7 +564,7 @@ const ShopPage = () => {
               )}
               {activeNew && (
                 <button
-                  onClick={() => setBoolFilter("new", false)}
+                  onClick={() => setBoolFilter('new', false)}
                   className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1.5 font-body text-xs"
                 >
                   New <X size={12} />
@@ -572,7 +577,7 @@ const ShopPage = () => {
         {/* Products grid */}
         <div className="flex-1">
           <div
-            className={`grid grid-cols-2 gap-4 md:gap-6 ${filtersOpen ? "md:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-3 lg:grid-cols-4"}`}
+            className={`grid grid-cols-2 gap-4 md:gap-6 ${filtersOpen ? 'md:grid-cols-2 lg:grid-cols-3' : 'md:grid-cols-3 lg:grid-cols-4'}`}
           >
             {filteredProducts.map((p) => (
               <ProductCard key={p.id} product={p} />
