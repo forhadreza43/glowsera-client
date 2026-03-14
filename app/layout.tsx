@@ -38,13 +38,13 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider>
           <TooltipProvider>
             <Toaster />
             <Sonner />
             <LayoutContent>{children}</LayoutContent>
           </TooltipProvider>
-        </ThemeProvider>
+        {/* <ThemeProvider>
+        </ThemeProvider> */}
       </body>
     </html>
   )
